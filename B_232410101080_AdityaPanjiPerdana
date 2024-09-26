@@ -1,0 +1,146 @@
+using System;
+using System.Collections.Generic;
+
+// Kelas Hewan
+class Hewan
+{
+    public string nama;
+    public int umur;
+
+    public virtual string Suara()
+    {
+        return "Hewannya bersuara";
+    }
+
+    public string InfoHewan()
+    {
+        return $"Nama: {nama} dan Umur: {umur}";
+    }
+}
+
+// Kelas Mamalia yang mewarisi Hewan
+class Mamalia : Hewan
+{
+    public int jumlahKaki;
+
+    public override string Suara()
+    {
+        return "Mamalia ini bersuara";
+    }
+}
+
+// Kelas Reptil yang mewarisi Hewan
+class Reptil : Hewan
+{
+    public double panjangTubuh;
+
+    public override string Suara()
+    {
+        return "Reptil ini bersuara";
+    }
+}
+
+// Kelas Singa yang mewarisi Mamalia
+class Singa : Mamalia
+{
+    public void Mengaum()
+    {
+        Console.WriteLine("Singa sedang mengaum RUAWRRRRRRRR");
+    }
+
+    public override string Suara()
+    {
+        return "Rrrghhhhhh";
+    }
+}
+
+// Kelas Gajah yang mewarisi Mamalia
+class Gajah : Mamalia
+{
+    public override string Suara()
+    {
+        return "Mnhooooogh";
+    }
+}
+
+// Kelas Ular yang mewarisi Reptil
+class Ular : Reptil
+{
+    public void Merayap()
+    {
+        Console.WriteLine("Ular sedang merayap zig zag");
+    }
+
+    public override string Suara()
+    {
+        return "Sssshhhttttt";
+    }
+}
+
+// Kelas Buaya yang mewarisi Reptil
+class Buaya : Reptil
+{
+    public override string Suara()
+    {
+        return "HI MANIES";
+    }
+}
+
+// Kelas KebunBinatang
+class KebunBinatang
+{
+    private List<Hewan> koleksiHewan = new List<Hewan>();
+
+    public void TambahHewan(Hewan hewan)
+    {
+        koleksiHewan.Add(hewan);
+    }
+
+    public void DaftarHewan()
+    {
+        foreach (var hewan in koleksiHewan)
+        {
+            Console.WriteLine(hewan.InfoHewan());
+            Console.WriteLine(hewan.Suara());
+            if (hewan is Singa singa)
+        {
+            Console.WriteLine($"Jumlah Kaki: {singa.jumlahKaki}");
+            Console.WriteLine("");
+        }
+        }
+    }
+}
+
+// Main
+class Program
+{
+    static void Main()
+    {
+        // Buat objek kebun binatang
+        KebunBinatang kebunBinatang = new KebunBinatang();
+
+        // Buat beberapa objek hewan
+        Singa singa = new Singa { nama = "Sumatora tora", umur = 3, jumlahKaki = 4 };
+        Gajah gajah = new Gajah { nama = "Upin", umur = 12, jumlahKaki = 4 };
+        Ular ular = new Ular { nama = "Garaga", umur = 3, panjangTubuh = 2.5 };
+        Buaya buaya = new Buaya { nama = "Adit gtg", umur = 19, panjangTubuh = 4 };
+
+        // Tambahkan hewan-hewan ke kebun binatang
+        kebunBinatang.TambahHewan(singa);
+        kebunBinatang.TambahHewan(gajah);
+        kebunBinatang.TambahHewan(ular);
+        kebunBinatang.TambahHewan(buaya);
+
+        // Tampilkan semua hewan di kebun binatang
+        kebunBinatang.DaftarHewan();
+        
+        Console.WriteLine("");
+        
+        // Panggil method khusus
+        singa.Mengaum();
+        ular.Merayap();
+        
+        Reptil reptil = buaya;
+        Console.WriteLine(reptil.Suara());
+    }
+}
